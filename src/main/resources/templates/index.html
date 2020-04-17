@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+
+<title>KỸ THUẬT GIẤU TIN</title>
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">BẢO MẬT THANH
+					TOÁN ONLINE BẰNG KỸ THUẬT GIẤU TIN VÀ MÃ HOÁ TRỰC QUAN</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">ĐĂNG
+							XUẤT</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<br>
+	<br>
+	<div class="container">
+		<h2>BỐN ANH EM SIÊU NHÂN XIN CHÀO <span sec:authentication="principal.username">User</span></h2>
+		<h2>
+			Số dư của bạn là: <span th:text="${user.totalMoney}">User</span>
+		</h2>
+		<div class="row" style="margin-top: 20px">
+			<div class="md-col-8">
+				<fieldset>
+					<legend>
+						<h2>Account List</h2>
+					</legend>
+					<table class="table table-hover table-dark">
+						<thead class="bg-primary">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Email</th>
+								<th scope="col">First Name</th>
+								<th scope="col">Last Name</th>
+								<th scope="col">Bank Number</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="user,iter : ${users}">
+								<tr th:style="${iter.odd}? 'background-color: #ccc;'">
+									<th scope="row" th:text="${iter.index + 1}"></th>
+									<td th:text="${user.email}"></td>
+									<td th:text="${user.firstName}"></td>
+									<td th:text="${user.lastName}"></td>
+									<td th:text="${user.bankNumber}"></td>
+									<td>
+										<a class="btn btn-primary" th:href="@{'/pay/' + ${user.id}}">Chuyển Khoản</a>
+									
+									
+									</td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</fieldset>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+	<script type="text/javascript"
+		th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
